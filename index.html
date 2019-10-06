@@ -66,6 +66,199 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-快速了解LEACH算法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/06/快速了解LEACH算法/" class="article-date">
+  <time datetime="2019-10-06T15:17:37.000Z" itemprop="datePublished">2019-10-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/06/快速了解LEACH算法/">快速了解LEACH算法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="论文："><a href="#论文：" class="headerlink" title="论文："></a>论文：</h1><ol>
+<li>Energy-efficient communication protocol for wireless microsensor networks HICSS’00 (DOI: 10.1109/HICSS.2000.926982)</li>
+<li>主要内容：LEACH 算法(Low-Energy Adaptive Clustering Hierarchy)</li>
+</ol>
+<h2 id="引入-（Section-1）"><a href="#引入-（Section-1）" class="headerlink" title="引入 （Section 1）"></a>引入 （Section 1）</h2><ol>
+<li>低功耗传感器网络<ol>
+<li>精度不高</li>
+<li>节点小巧，便宜，节能，便于大范围部署</li>
+<li>具有容错性（非静态网络）</li>
+<li>通过本地的协作（Local collaboration）来减少带宽压力</li>
+</ol>
+</li>
+<li>模型假设：<ol>
+<li>基站固定，远离距离传感器</li>
+<li>所有节点类型相同，主要受能量约束（ energy-constrained）<h2 id="传输能耗计算-（Section-2）"><a href="#传输能耗计算-（Section-2）" class="headerlink" title="传输能耗计算 （Section 2）"></a>传输能耗计算 （Section 2）</h2>$ E_{elec} = 50nJ/bit $  传输/接收电路运转所需能量，仅与<strong>二进制位数</strong>有关<br>$ \epsilon_{amp} = 100nJ/bit/m^2 $  传输放大器为了让接收者获得信号需要的能力，与<strong>二进制位数</strong>、<strong>传输距离</strong>的平方成正比<br>令$k$为传输二进制位数，$d$为Tx和Rx之间的距离<br>$ E_{Tx}(k,d) = E_{elec}·k+\epsilon_{amp}k·d^2$<br>$ E_{Rx}(k,d) = E_{elec}·k$</li>
+</ol>
+</li>
+</ol>
+<ul>
+<li>传输会消耗大量能量</li>
+<li>要权衡好传输距离和传输信息的次数</li>
+</ul>
+<hr>
+<h2 id="两种简单协议-（Section-3）"><a href="#两种简单协议-（Section-3）" class="headerlink" title="两种简单协议 （Section 3）"></a>两种简单协议 （Section 3）</h2><div align="center">
+    <span style="display: inline-block">
+        <img src="/2019/10/06/快速了解LEACH算法/2019-10-06-14-20-35.png" width="50%">
+    </span>
+    <p><i style="font-size:12px; color:read"></i></p>
+</div>
+
+<ul>
+<li><p>直接传输协议：node 1-&gt;Base Station</p>
+<div align="center">
+  <span style="display: inline-block">
+      <img src="/2019/10/06/快速了解LEACH算法/2019-10-06-14-29-11.png" width="50%">
+  </span>
+  <p><i style="font-size:12px; color:read">我放弃手动输入了，你自己写到ppt里吧</i></p>
+</div>
+</li>
+<li><p>最小传输能量协议：node 1-&gt;node 2-&gt;··· -&gt;node n -&gt; Base Station</p>
+<div align="center">
+  <span style="display: inline-block">
+      <img src="/2019/10/06/快速了解LEACH算法/2019-10-06-14-29-56.png" width="70%">
+  </span>
+  <p><i style="font-size:12px; color:read"></i></p>
+</div>
+
+</li>
+</ul>
+<p>MATLAB模拟：随机100个节点的网络，基站位于(0,-100处)</p>
+<div align="center">
+    <span style="display: inline-block">
+        <img src="/2019/10/06/快速了解LEACH算法/2019-10-06-14-33-42.png" width="100%">
+    </span>
+    <p><i style="font-size:12px; color:read"></i></p>
+</div>
+
+<div align="center">
+    <span style="display: inline-block">
+        <img src="/2019/10/06/快速了解LEACH算法/2019-10-06-14-36-13.png" width="100%">
+    </span>
+    <p><i style="font-size:12px; color:read"></i></p>
+</div>
+
+<p>$$ 网络直径- E_{elec}-整体能量消耗 $$</p>
+<p>这个图其实看看就好了，重点关注节点的死亡</p>
+<p>节点的死亡：<strong>假设每个节点的电量是相同</strong>，由于传输信息消耗电量，一定轮次后节点的能量消耗殆尽。</p>
+<div align="center">
+    <span style="display: inline-block">
+        <img src="/2019/10/06/快速了解LEACH算法/2019-10-06-14-44-34.png" width="50%">
+    </span>
+    <p><i style="font-size:12px; color:read"></i></p>
+</div>
+
+<div align="center">
+    <span style="display: inline-block">
+        <img src="/2019/10/06/快速了解LEACH算法/2019-10-06-14-50-11.png" width="70%">
+    </span>
+    <p><i style="font-size:12px; color:read">180轮后直接传输和MTE的剩余节点</i></p>
+</div>
+两种协议的缺陷：节点死亡的不均匀。 这不是在传感网中我们期望看到的
+
+<hr>
+<h2 id="分簇"><a href="#分簇" class="headerlink" title="分簇"></a>分簇</h2><p>传感器网络的组织：分簇</p>
+<div align="center">
+    <span style="display: inline-block">
+        <img src="/2019/10/06/快速了解LEACH算法/2019-10-06-14-54-53.png" width="100%">
+    </span>
+    <p><i style="font-size:12px; color:read">拓展星形拓扑结构</i></p>
+</div>
+大量的末端传感器作为簇终端节点(Cluster Node)，一个与终端节点进行数据交换的设备作为簇头节点(Cluster Head)，两者构成一簇。一般来说，为了避免多个簇终端节点同时向基站的同一频道传送数据，减少冲突导致的崩溃和数据重发，往往会采用一个多余的设备,称为高级簇头节点(Super Cluster Head)。簇与簇间以链式多跳的方式来传递簇内数据，最终收集于高级簇头节点中。高级簇头节点中的数据则通过若干转发节点(Transefer Node)将数据传送到基站。
+
+<p> <strong>簇头节点会消耗更多的能量</strong></p>
+<ul>
+<li>静态分簇：固定的簇头节点,能量消耗不均，健壮性差</li>
+<li>动态分簇：LEACH，通过数学方法保证每个节点等概率、轮流的成为簇头节点<br>等概率:每个还未曾成为簇头的节点等概率的成为簇头</li>
+</ul>
+<h2 id="LEACH算法细节-（Section-5）"><a href="#LEACH算法细节-（Section-5）" class="headerlink" title="LEACH算法细节 （Section 5）"></a>LEACH算法细节 （Section 5）</h2><h3 id="簇头节点的选择"><a href="#簇头节点的选择" class="headerlink" title="簇头节点的选择"></a>簇头节点的选择</h3><div align="center">
+    <span style="display: inline-block">
+        <img src="/2019/10/06/快速了解LEACH算法/2019-10-06-15-07-43.png" width="70%">
+    </span>
+    <p><i style="font-size:12px; color:read"></i></p>
+</div>
+
+<p>$$ P：期望的簇头率$$<br>$$ r：当前轮数$$<br>$$ G：上1/p轮中曾被选为簇头的节点集$$<br>P相当于课本的$\frac{k}{N}$,通过matlab实验发现设定为0.05时最佳<br>r=0时，T(n)=P,所有节点等概率的成为簇头；r=$\frac{1}{P}-1$时T(n)=1，所有剩余节点都被选为簇头，保证了每$\frac{1}{p}$轮内所有节点都会被选为簇头</p>
+<hr>
+<h3 id="建立簇"><a href="#建立簇" class="headerlink" title="建立簇"></a>建立簇</h3><ol>
+<li>每个节点<strong>独立地</strong>计算自己是否成为簇头</li>
+<li>簇头节点通过非坚持CSMA协议向周围发送信号，宣布自己为簇头；非簇头节点保持通信，根据每个簇头节点发送的信号强度，选择强度最大（消耗能量最少）者为簇头，并将自己的加入该簇的信息告知簇头。</li>
+</ol>
+<h3 id="通信"><a href="#通信" class="headerlink" title="通信"></a>通信</h3><ol>
+<li>建立通讯时间表，以时分多址（TDMA）方式进行簇间通信</li>
+<li>簇头节点始终开启，非簇头节点在通信时间以外可以关闭，节省电量</li>
+<li>簇头节点进行数据压缩，减少与基站之间通信消耗的电量</li>
+</ol>
+<h3 id="其他细节："><a href="#其他细节：" class="headerlink" title="其他细节："></a>其他细节：</h3><ol>
+<li>簇间信号干扰： 频分多址</li>
+<li>多层簇</li>
+</ol>
+<h2 id="LEACH协议的效果-（Section-4）"><a href="#LEACH协议的效果-（Section-4）" class="headerlink" title="LEACH协议的效果 （Section 4）"></a>LEACH协议的效果 （Section 4）</h2><div align="center">
+    <span style="display: inline-block">
+        <img src="/2019/10/06/快速了解LEACH算法/2019-10-06-15-42-18.png" width="100%">
+    </span>
+    <p><i style="font-size:12px; color:read"></i></p>
+</div>
+<div align="center">
+    <span style="display: inline-block">
+        <img src="/2019/10/06/快速了解LEACH算法/2019-10-06-15-43-22.png" width="100%">
+    </span>
+    <p><i style="font-size:12px; color:read"></i></p>
+</div>
+<div align="center">
+    <span style="display: inline-block">
+        <img src="/2019/10/06/快速了解LEACH算法/2019-10-06-15-45-15.png" width="100%">
+    </span>
+    <p><i style="font-size:12px; color:read"></i></p>
+</div>
+
+<ol>
+<li>能量消耗远小于Direct和MTE两种协议，消耗能量约为其八分之一</li>
+<li>能量消耗更均匀，第一个节点死亡的时间延长了8倍</li>
+<li>节点均匀的死亡，更符合传感网的要求</li>
+</ol>
+<h2 id="总结-（Section-4）"><a href="#总结-（Section-4）" class="headerlink" title="总结 （Section 4）"></a>总结 （Section 4）</h2><ol>
+<li>LEACH 算法的特点<ol>
+<li>本地化的簇建立和交流 </li>
+<li>自组网</li>
+<li>随机、轮转的选择簇头节点</li>
+<li>本地的数据压缩</li>
+</ol>
+</li>
+<li>延申的研究：<ol>
+<li>考虑节点剩余能量：LEACH-C算法等</li>
+<li>节省簇间的能量消耗：EEUC竞选算法</li>
+</ol>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/10/06/快速了解LEACH算法/" data-id="ck1f4tsb70001dsvfwrys3z9r" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-我捣鼓VScode-快捷键" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/08/08/我捣鼓VScode-快捷键/" class="article-date">
@@ -248,7 +441,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/08/我捣鼓VScode-快捷键/" data-id="cjz6b7s5n0001rwvfd21vggu5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/08/我捣鼓VScode-快捷键/" data-id="ck1f4tsbq0002dsvfv48oze45" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shortcut/">Shortcut</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vscode/">Vscode</a></li></ul>
@@ -299,7 +492,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/03/hello-world/" data-id="cjz6b7s510000rwvfgazkns2x" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/03/hello-world/" data-id="ck1f4tsay0000dsvfh4iz61bi" class="article-share-link">Share</a>
       
       
     </footer>
@@ -341,7 +534,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li></ul>
     </div>
   </div>
 
@@ -352,6 +545,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/10/06/快速了解LEACH算法/">快速了解LEACH算法</a>
+          </li>
         
           <li>
             <a href="/2019/08/08/我捣鼓VScode-快捷键/">我捣鼓VScode之快捷键的增加/修改/查询/常用快捷键</a>
